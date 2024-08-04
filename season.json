@@ -1,0 +1,27 @@
+[
+  {
+    "name": "lang",
+    "value": "EN",
+    "domain": "geodash.click",
+    "path": "/",
+    "expirationDate": 1757294449.528168,
+    "sameSite": "unspecified",
+    "storeId": "0",
+    "hostOnly": true,
+    "httpOnly": false,
+    "secure": false,
+    "session": false
+  },
+  {
+    "name": "PHPSESSID",
+    "value": "6772144c3df9ae32f15c7296d8f045f1",
+    "domain": "geodash.click",
+    "path": "/",
+    "sameSite": "unspecified",
+    "storeId": "0",
+    "hostOnly": true,
+    "httpOnly": false,
+    "secure": false,
+    "session": true
+  }
+]
