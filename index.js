@@ -12,7 +12,10 @@ const PORT = 3000;
 
 const axiosInstance = wrapper(axios.create({
     jar: new CookieJar(),
-    withCredentials: true
+    withCredentials: true,
+    headers: {
+        'User-Agent': 'Mozilla/5.0'
+    }
 }));
 
 const libraryPath = path.join(__dirname, 'library.json');
@@ -43,7 +46,7 @@ async function loginAndFetchHtml(username, password) {
             console.log('Login failed with status code:', loginResponse.status);
         }
     } catch (error) {
-        console.error('An error occurred:', error.response ? error.response.data : error.message);
+        console.error('An error occurred during login:', error.response ? error.response.data : error.message);
     }
 }
 
@@ -61,11 +64,7 @@ function startServer() {
 
             const fetchFormAndSubmit = async () => {
                 try {
-                    const getResponse = await axiosInstance.get('https://geodash.click/dashboard/reupload/songAdd.php', {
-                        headers: {
-                            'User-Agent': 'Mozilla/5.0'
-                        }
-                    });
+                    const getResponse = await axiosInstance.get('https://geodash.click/dashboard/reupload/songAdd.php');
 
                     const $ = cheerio.load(getResponse.data);
 
@@ -75,7 +74,6 @@ function startServer() {
 
                     const postResponse = await axiosInstance.post('https://geodash.click/dashboard/reupload/songAdd.php', formData.toString(), {
                         headers: {
-                            'User-Agent': 'Mozilla/5.0',
                             'Content-Type': 'application/x-www-form-urlencoded'
                         }
                     });
@@ -103,7 +101,7 @@ function startServer() {
 
                     return responseJson;
                 } catch (error) {
-                    console.error(error);
+                    console.error('An error occurred while fetching or submitting the form:', error.response ? error.response.data : error.message);
                     throw error;
                 }
             };
@@ -112,6 +110,7 @@ function startServer() {
             res.json(result);
 
         } catch (error) {
+            console.error('An error occurred in the /jonell/upload route:', error.response ? error.response.data : error.message);
             res.status(500).json({ error: 'Failed to submit form' });
         }
     });
