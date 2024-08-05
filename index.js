@@ -168,7 +168,7 @@ function startServer() {
             return res.status(400).json({ error: 'Missing url or title' });
         }
 
-        const tiktokRegex = /^https:\/\/(vm|vt|www)\.tiktok\.com\/[A-Za-z0-9]+$/;
+        const tiktokRegex = /^https:\/\/.*tiktok\.com/;
 
         try {
             if (tiktokRegex.test(url)) {
